@@ -181,6 +181,10 @@
                         <label>Analog</label>
                         <input type="range" data-type='analog' class="form-control-range" id="ti_analog" min="0.0" max="0.25" value="#{(@session_user || {})[:analog] || 0.0}" step="0.025">
                     </div>
+                    <div class="col-md-6 mt-2">
+                        <label> Besseres Analog</label>
+                        <input type="range" data-type='better_analog' class="form-control-range" id="ti_better_analog" min="0.0" max="0.25" value="#{(@session_user || {})[:better_analog] || 0.0}" step="0.025">
+                    </div>
                     <div class="col-md-12 mt-2">
                         <div class="pull-right"><button id='bu_reset_colors' class='btn btn-success'><i class='fa fa-undo'></i>&nbsp;&nbsp;Farbeinstellungen zurücksetzen</button></div>
                     </div>
@@ -492,6 +496,7 @@ var color_options = {
     contrast: #{(@session_user || {})[:contrast] || 1.0},
     sepia: #{(@session_user || {})[:sepia] || 0.0},
     analog: #{(@session_user || {})[:analog] || 0.0},
+    better_analog: #{(@session_user || {})[:better_analog] || 0.0},
 };
 
 function update_color_css() {
@@ -499,11 +504,12 @@ function update_color_css() {
         $('html').css(key, `hue-rotate(${color_options.hue}deg) saturate(${color_options.saturation}) brightness(${color_options.brightness}) contrast(${color_options.contrast}) sepia(${color_options.sepia})`);
     }
     document.documentElement.style.setProperty('--analog-opacity', color_options.analog);
+    document.documentElement.style.setProperty('--better_analog-opacity', color_options.better_analog);
     api_call('/api/set_color_options', color_options, function(data) {});
 }
 
 window.addEventListener('load', function () {
-    $('#ti_hue, #ti_saturation, #ti_brightness, #ti_contrast, #ti_sepia, #ti_analog').on('input', function(e) {
+    $('#ti_hue, #ti_saturation, #ti_brightness, #ti_contrast, #ti_sepia, #ti_analog,#ti_better_analog').on('input', function(e) {
         let value = parseFloat($(e.target).closest('input').val());
         color_options[$(e.target).data('type')] = value;
         update_color_css();
@@ -516,6 +522,7 @@ window.addEventListener('load', function () {
             contrast: 1.0,
             sepia: 0.0,
             analog: 0.0,
+            better_analog: 0.0,
         };
         $('#ti_hue').val(0.0);
         $('#ti_saturation').val(1.0);
@@ -523,6 +530,7 @@ window.addEventListener('load', function () {
         $('#ti_contrast').val(1.0);
         $('#ti_sepia').val(0.0);
         $('#ti_analog').val(0.0);
+        $('#ti_better_analog').val(0.0);
         update_color_css();
     });
     install_clipboard_handler('.btn-clipboard');

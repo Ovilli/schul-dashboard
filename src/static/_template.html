@@ -126,7 +126,7 @@
             opacity: var(--analog-opacity);
             transition: opacity 0.25s ease-out;
             content: "";
-            background-image: url("/grain/grain.jpg");
+            background-image: url("/grain/old_tv.jpg");
             background-size: 2000px;
             background-position: 50% 50%;
             position: absolute;
@@ -744,6 +744,11 @@
         #{CONTENT}
         <div class="grain_overlay"></div>
     </div>
+    <div style='position: relative; display: #{MAINTENANCE_MODE ? ' none' : 'block' }' id="main_container">
+    #{CONTENT}
+    <div class="old_tv_overlay"></div>
+    </div>
+
     <!-- <div class='snowman'></div> -->
     <div class='foot text-muted'>
         <span class='float-left'>&copy; 2025 <a href='https://gymnasiumsteglitz.de' target='_blank'>Gymnasium
